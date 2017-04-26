@@ -10,7 +10,7 @@ class SingleInstance:
         self.mutex = CreateMutex(None, False, self.mutexname)
         self.lasterror = GetLastError()
 
-    def alreadyrunning(self):
+    def already_running(self):
         return self.lasterror == ERROR_ALREADY_EXISTS
 
     def __del__(self):
@@ -19,7 +19,7 @@ class SingleInstance:
            
 if __name__ == '__main__':
     si = SingleInstance()
-    if si.alreadyrunning():
+    if si.already_running():
         print('Process already running.')
     else:
         print('First process started.')
