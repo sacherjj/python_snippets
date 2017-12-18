@@ -6,15 +6,15 @@ import winreg as _winreg
 hkcr = _winreg.OpenKey(_winreg.HKEY_CLASSES_ROOT, "")
 
 i = 0
-while True:
-    try:
+try:
+    while True:
         ctype = _winreg.EnumKey(hkcr, i)
-    except EnvironmentError:
-        break
-    else:
         if '\x00' in ctype:
-            print("{} -> {}\n".format(type(ctype), ctype))
+            print(ctype)
+        if not isinstance(ctype, str):
+            print("{} -> {}".format(type(ctype), ctype))
+        i += 1
+except WindowsError:
+    # Will always go off the end of EnumKey to escape the while
+    pass
 
-    i += 1
-
-print('Complete')
